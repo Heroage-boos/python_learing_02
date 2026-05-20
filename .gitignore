@@ -1,0 +1,24 @@
+# Logs
+*.log
+
+# Archives
+*.zip
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+*.egg-info/
+dist/
+build/
+
+# Pipenv
+Pipfile.lock
+
+# IDE
+.idea/

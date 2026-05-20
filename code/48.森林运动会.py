@@ -43,9 +43,11 @@ if __name__ == "__main__":
     rabbit.start()
     tortoise.start()
     elephant.start()
+
     rabbit.join()
     tortoise.join()
     elephant.join()
+    
     print("比赛结束")
     print(f"最终排名：{ranking}")
 
