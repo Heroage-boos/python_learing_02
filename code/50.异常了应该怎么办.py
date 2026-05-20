@@ -5,11 +5,6 @@
 
 每个特定 错误都对应一个异常类对象
 """
-
-
-
-
-
 def division():
     while True:
         print("孔融开始分梨了")
