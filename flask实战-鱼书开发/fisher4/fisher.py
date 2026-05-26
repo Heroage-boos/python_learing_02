@@ -8,4 +8,4 @@ app= create_app();
 
 # 生产环境 nginx + uwsgi 必须加 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=app.config["DEBUG"], port=81)
+    app.run(host="0.0.0.0", debug=app.config['DEBUG'], port=81)
