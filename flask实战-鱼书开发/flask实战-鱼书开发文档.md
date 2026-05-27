@@ -316,4 +316,24 @@ fisher4/                         # v4: 单蓝图多模块
 
 ## 拆分config配置文件
 
+## 如何减少第三方接口请求数据
+-每一次查询将数据存储到数据库中去，下一次查询，先本地查询数据库如果有，不需要再次请求第三方。
+-用redis来存储，key为查询的书籍名，value为书籍信息，设置好过期时间。
+
+
 ## Model First, Database First 与 Code First 
+- Model First：先有模型，再建数据库 （数据库管理员经常使用，使用图表连转转换成数据库）
+- Database First：先有数据库，再写代码（对应ORM）
+- Code First：先写代码，再建数据库  (专注业务模型的设计，而不是专注数据库设计)
+
+## Code First 创建数据库
+- 使用flask-sqlalchemy来创建数据库
+    - 安装：pip install flask-sqlalchemy
+    - 在config中配置数据库
+    - 在app中初始化db
+
+## 将模型映射到数据库中
+
+## MVC,ORM
+- MVC：模型，视图，控制器 
+- ORM：对象关系映射，将类和对象转换为数据库中的表和记录

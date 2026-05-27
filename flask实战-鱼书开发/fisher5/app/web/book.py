@@ -1,8 +1,14 @@
 # 关键字搜索
+# from flask import jsonify
+
+# 正确导入方式，无法导入flask
+# from fisher import app
+
+# 使用蓝图注册flask
 from flask import jsonify, request
 from app.libs.helper import is_isnm_or_key
 from app.spider.yushu_book import YuShuBook
-from app.forms.book import SearchForm
+from app.forms.book import SearchForm  
 
 # 导入蓝图
 from . import web

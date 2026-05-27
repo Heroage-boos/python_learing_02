@@ -1,5 +1,5 @@
 
-from http_helper import HTTP
+from app.libs.http_helper import HTTP
 # from fisher import app 不要这样导入，会形成循环依赖
 from flask import current_app  #指代创建app的对象
 
