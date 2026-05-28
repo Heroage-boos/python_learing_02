@@ -337,3 +337,39 @@ fisher4/                         # v4: 单蓝图多模块
 ## MVC,ORM
 - MVC：模型，视图，控制器 
 - ORM：对象关系映射，将类和对象转换为数据库中的表和记录
+
+## flask核心机制
+
+## flask中出现 RuntimeError: Working outside of application context. 原因
+
+## with语句与上下文管理器
+-连接数据库
+-文件读写
+
+## 进程，线程，协程
+- 进程：独立的内存空间，独立的运行环境，独立的文件描述符（打开文件）
+- 线程：同一块内存空间，不同的执行单元（CPU时间片）
+- 协程：同一块内存空间，不同的执行单元（CPU时间片），协程切换成本极低
+
+
+# 线程
+- 多线程
+- 主线程和子线程的执行顺序
+- 多线程的优势与好处
+- 全局解释器锁GIL
+- 对于IO密集型程序，多线程是有意义的
+- 对于CPU密集型程序，多线程是没有意义的
+- 开启flask多线程所带来的问题
+- 线程隔离
+-flask中的线程隔离对象Local
+-flask中的线程隔离对象栈：LocalStack
+-flask中被线程隔离的对象
+-梳理串接flask的一些名词
+
+
+## python 中的锁
+- 锁的目的：保证多线程之间的数据同步
+- 常用锁：Lock, RLock, Semaphore, BoundedSemaphore, Condition
+
+
+## ViewModel的基本概念

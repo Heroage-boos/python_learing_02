@@ -64,4 +64,4 @@ def search2():
         # flask提供的简写方法
         return jsonify(result)
     else:
-        return jsonify(form.errors), 400
+        return jsonify(form.errors)
