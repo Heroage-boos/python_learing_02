@@ -9,6 +9,7 @@ from flask import jsonify, request
 from app.libs.helper import is_isnm_or_key
 from app.spider.yushu_book import YuShuBook
 from app.forms.book import SearchForm  
+from app.view_models.book import BookCollection
 
 # 导入蓝图
 from . import web
@@ -23,9 +24,11 @@ def search(q):
     # 用来判断是q还是关键字
     isbn_or_key = is_isnm_or_key(q)
     if isbn_or_key == "isbn":
-        result = YuShuBook.search_by_isbn(q)
+        data = YuShuBook.search_by_isbn(q)
+        result = BookCollection.package_single(data,q)
     else:
-        result = YuShuBook.search_by_keyword(q)
+        data = YuShuBook.search_by_keyword(keyword=q)
+        result = BookCollection.package_collection(data,q)
     # flask提供的简写方法
     return jsonify(result)
 
@@ -58,9 +61,11 @@ def search2():
 
         isbn_or_key = is_isnm_or_key(q)
         if isbn_or_key == "isbn":
-            result = YuShuBook.search_by_isbn(q)
+            data = YuShuBook.search_by_isbn(q)
+            result = BookCollection.package_single(data,q)
         else:
-            result = YuShuBook.search_by_keyword(keyword=q)
+            data = YuShuBook.search_by_keyword(keyword=q)
+            result = BookCollection.package_collection(data,q)
         # flask提供的简写方法
         return jsonify(result)
     else:

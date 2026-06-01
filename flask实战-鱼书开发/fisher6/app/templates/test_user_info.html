@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息查看模块 - 测试页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3a8ffe 0%, #2962ff 100%);
+            color: white;
+            padding: 25px 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .search-section {
+            display: flex;
+            margin-bottom: 30px;
+            background-color: #f9fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eef1f7;
+        }
+        
+        .search-box {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        
+        .search-box:focus {
+            border-color: #3a8ffe;
+        }
+        
+        .search-btn {
+            background-color: #3a8ffe;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover {
+            background-color: #2962ff;
+        }
+        
+        .user-info-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .user-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eef1f7;
+        }
+        
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f0f5ff;
+            margin-bottom: 20px;
+        }
+        
+        .user-field {
+            margin-bottom: 15px;
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .field-label {
+            font-weight: 600;
+            width: 100px;
+            color: #666;
+        }
+        
+        .field-value {
+            flex: 1;
+        }
+        
+        .status-active {
+            color: #4caf50;
+            background-color: #e8f5e9;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .status-inactive {
+            color: #f44336;
+            background-color: #ffebee;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .no-user {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 18px;
+            width: 100%;
+        }
+        
+        .user-list {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eef1f7;
+        }
+        
+        .list-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .user-list-item {
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-list-item:hover {
+            background-color: #f9fafc;
+        }
+        
+        .user-list-item.active {
+            background-color: #f0f7ff;
+            border-left: 4px solid #3a8ffe;
+        }
+        
+        .list-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .list-info {
+            flex: 1;
+        }
+        
+        .list-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .list-email {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .user-info-section {
+                flex-direction: column;
+            }
+            
+            .search-section {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                border-radius: 6px;
+                margin-bottom: 10px;
+            }
+            
+            .search-btn {
+                border-radius: 6px;
+                padding: 12px;
+            }
+        }
+    </style>
+    <!--  使用url_for()函数来生成，作用是告诉模板引擎到哪里找相应的文件 ,包含css，js,图片都建议使用-->
+    <link rel="stylesheet" href="{{ url_for('static',filename='test_user_info.css') }}">
+</head>
+<body>
+    <div class="container">
+        <span class="user-info">
+            {{data.name}},{{data.age}}
+        </span>
+        <header>
+            <h1>用户信息查看模块</h1>
+            <p class="subtitle">这是一个用于测试的用户信息查看页面，支持搜索和查看用户详情</p>
+        </header>
+        
+        <div class="content">
+            <div class="search-section">
+                <input type="text" class="search-box" id="searchInput" placeholder="输入用户ID、姓名或邮箱进行搜索...">
+                <button class="search-btn" id="searchBtn">搜索用户</button>
+            </div>
+            
+            <div class="user-info-section">
+                <div class="user-card" id="userCard">
+                    <!-- 用户详情将在这里动态显示 -->
+                    <div class="no-user" id="noUserMessage">
+                        <p>请从右侧用户列表中选择一个用户，或使用搜索功能查找用户</p>
+                    </div>
+                </div>
+                
+                <div class="user-list">
+                    <h3 class="list-title">用户列表</h3>
+                    <div id="userListContainer">
+                        <!-- 用户列表将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>用户信息查看模块 - 仅用于测试目的 | 数据为模拟数据</p>
+        </footer>
+    </div>
+
+    <script>
+        // 模拟用户数据
+        const users = [
+            {
+                id: 1001,
+                name: "张明",
+                email: "zhangming@example.com",
+                phone: "13800138001",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=zhangming",
+                age: 28,
+                gender: "男",
+                city: "北京",
+                joinDate: "2023-05-12",
+                status: "active",
+                role: "管理员"
+            },
+            {
+                id: 1002,
+                name: "李娜",
+                email: "lina@example.com",
+                phone: "13900139002",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lina",
+                age: 32,
+                gender: "女",
+                city: "上海",
+                joinDate: "2022-11-03",
+                status: "active",
+                role: "编辑"
+            },
+            {
+                id: 1003,
+                name: "王伟",
+                email: "wangwei@example.com",
+                phone: "13600136003",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=wangwei",
+                age: 25,
+                gender: "男",
+                city: "深圳",
+                joinDate: "2024-01-20",
+                status: "active",
+                role: "用户"
+            },
+            {
+                id: 1004,
+                name: "刘芳",
+                email: "liufang@example.com",
+                phone: "13700137004",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=liufang",
+                age: 35,
+                gender: "女",
+                city: "广州",
+                joinDate: "2021-08-15",
+                status: "inactive",
+                role: "用户"
+            },
+            {
+                id: 1005,
+                name: "陈浩",
+                email: "chenhao@example.com",
+                phone: "13500135005",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=chenhao",
+                age: 40,
+                gender: "男",
+                city: "杭州",
+                joinDate: "2020-12-10",
+                status: "active",
+                role: "管理员"
+            }
+        ];
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUserList(users);
+            displayUserDetails(users[0]);
+            
+            // 搜索按钮点击事件
+            document.getElementById('searchBtn').addEventListener('click', searchUser);
+            
+            // 输入框回车键搜索
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchUser();
+                }
+            });
+        });
+
+        // 渲染用户列表
+        function renderUserList(userArray) {
+            const userListContainer = document.getElementById('userListContainer');
+            userListContainer.innerHTML = '';
+            
+            if (userArray.length === 0) {
+                userListContainer.innerHTML = '<div class="no-user">未找到匹配的用户</div>';
+                return;
+            }
+            
+            userArray.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-list-item';
+                userItem.dataset.userId = user.id;
+                
+                userItem.innerHTML = `
+                    <img src="${user.avatar}" alt="${user.name}" class="list-avatar">
+                    <div class="list-info">
+                        <div class="list-name">${user.name} (ID: ${user.id})</div>
+                        <div class="list-email">${user.email}</div>
+                    </div>
+                    <span class="${user.status === 'active' ? 'status-active' : 'status-inactive'}">
+                        ${user.status === 'active' ? '活跃' : '未激活'}
+                    </span>
+                `;
+                
+                // 点击用户列表项显示用户详情
+                userItem.addEventListener('click', function() {
+                    // 移除所有活动状态
+                    document.querySelectorAll('.user-list-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 为当前项添加活动状态
+                    this.classList.add('active');
+                    
+                    // 显示用户详情
+                    displayUserDetails(user);
+                });
+                
+                userListContainer.appendChild(userItem);
+            });
+            
+            // 默认选中第一个用户
+            if (userArray.length > 0) {
+                const firstUserItem = userListContainer.querySelector('.user-list-item');
+                if (firstUserItem) {
+                    firstUserItem.classList.add('active');
+                }
+            }
+        }
+
+        // 显示用户详情
+        function displayUserDetails(user) {
+            const userCard = document.getElementById('userCard');
+            
+            if (!user) {
+                userCard.innerHTML = `
+                    <div class="no-user">
+                        <p>未找到用户信息</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            userCard.innerHTML = `
+                <div style="text-align: center;">
+                    <img src="${user.avatar}" alt="${user.name}" class="user-avatar">
+                    <h2 style="margin-bottom: 5px;">${user.name}</h2>
+                    <p style="color: #666; margin-bottom: 20px;">${user.role} | ID: ${user.id}</p>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">邮箱</div>
+                    <div class="field-value">${user.email}</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">电话</div>
+                    <div class="field-value">${user.phone}</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">年龄</div>
+                    <div class="field-value">${user.age} 岁</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">性别</div>
+                    <div class="field-value">${user.gender}</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">城市</div>
+                    <div class="field-value">${user.city}</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">加入日期</div>
+                    <div class="field-value">${user.joinDate}</div>
+                </div>
+                
+                <div class="user-field">
+                    <div class="field-label">状态</div>
+                    <div class="field-value">
+                        <span class="${user.status === 'active' ? 'status-active' : 'status-inactive'}">
+                            ${user.status === 'active' ? '活跃用户' : '未激活用户'}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="user-field" style="border-bottom: none; padding-bottom: 0;">
+                    <div class="field-label">用户角色</div>
+                    <div class="field-value">${user.role}</div>
+                </div>
+            `;
+        }
+
+        // 搜索用户
+        function searchUser() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if (!searchTerm) {
+                renderUserList(users);
+                if (users.length > 0) {
+                    displayUserDetails(users[0]);
+                }
+                return;
+            }
+            
+            // 过滤用户
+            const filteredUsers = users.filter(user => 
+                user.id.toString().includes(searchTerm) ||
+                user.name.toLowerCase().includes(searchTerm) ||
+                user.email.toLowerCase().includes(searchTerm) ||
+                user.city.toLowerCase().includes(searchTerm)
+            );
+            
+            // 重新渲染用户列表
+            renderUserList(filteredUsers);
+            
+            // 显示第一个搜索结果或显示无结果
+            if (filteredUsers.length > 0) {
+                displayUserDetails(filteredUsers[0]);
+            } else {
+                const userCard = document.getElementById('userCard');
+                userCard.innerHTML = `
+                    <div class="no-user">
+                        <p>未找到匹配的用户，请尝试其他搜索词</p>
+                        <p style="margin-top: 10px; font-size: 14px;">搜索词: "${searchTerm}"</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
